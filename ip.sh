@@ -4,6 +4,7 @@ if [ $? -eq 1 ];then
     nmcli connection modify ens33 ipv4.method manual ipv4.addresses  192.168.4.$1/24       connection.autoconnect yes  
     nmcli connection up ens33 &>/dev/null
     sed -ri  "s/192.168.4.[0-9]{0,3}/192.168.4.$1/"  /etc/yum.repos.d/centos.repo
+    sed -ri  "s/^192.168.4.[0-9]{0,3}/192.168.4.$1/"   /etc/hosts
 else
    echo "此ip已经存在"
    exit
