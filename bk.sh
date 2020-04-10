@@ -49,7 +49,7 @@ yum repolist
   exit
  fi
 
-which rsync
+which rsync   >/dev/null
 if [ $? -ne 0 ];then
  yum -y install rsync
 fi
