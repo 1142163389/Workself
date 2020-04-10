@@ -39,6 +39,10 @@ wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.cloud.tencent.com/repo/
 wget -O /etc/yum.repos.d/epel.repo http://mirrors.cloud.tencent.com/repo/epel-7.repo
 yum clean all
 yum repolist 
+ if [ $?  -ne 0 ];then
+  echo "初始化失败"
+  exit
+ fi
 
 which rsync
 if [ $? -ne 0 ];then
