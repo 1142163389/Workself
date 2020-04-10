@@ -11,6 +11,8 @@ fi
 systemctl stop NetworkManager
 systemctl disable NetworkManager
 
+chmod +x /etc/resolv.conf 
+chattr -i /etc/resolv.conf 
 
 systemctl stop firewalld
 systemctl disable firewalld
