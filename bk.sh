@@ -18,10 +18,6 @@ systemctl disable firewalld
 setenforce 0
 sed -i 's/^SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 
-which rsync 
-if [ $? -ne 0 ];then 
- yum -y install rsync 
-fi 
  
 
 echo "root soft nofile 102400
@@ -41,6 +37,33 @@ wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.cloud.tencent.com/repo/
 wget -O /etc/yum.repos.d/epel.repo http://mirrors.cloud.tencent.com/repo/epel-7.repo
 yum clean all
 yum repolist 
+
+which rsync
+if [ $? -ne 0 ];then
+ yum -y install rsync
+fi
+
+chronyd () {
+ systemctl restart chronyd
+ local a='^*'
+ if  not [ chronyc sources | awk  'NR==4{print $1}'  == "$a" ];then 
+ echo "时间校时不通过"
+ fi
+  }
+
+ss -lnput | grep chronyd || ss -lnput | grep  npt 
+if [ $? -eq 0];then 
+ case $a in 
+  )
+
+
+
+
+
+
+
+
+
 
 
 
