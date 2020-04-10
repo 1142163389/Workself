@@ -23,8 +23,8 @@ sed -i 's/^SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 echo "root soft nofile 102400
 root hard nofile 102400"  >>  /etc/security/limits.conf
 
-ulimit -Hn 102400
 ulimit -Sn 102400
+ulimit -Hn 102400
 
 mkdir /data
 tar xf /root/bkce_src-5.1.26.tar.gz  -C /data
