@@ -43,28 +43,39 @@ if [ $? -ne 0 ];then
  yum -y install rsync
 fi
 
-chronyd () {
+chrony () {
+ yum -y install chrony       &>/dev/null
+ sed -ri  "s/^server.*iburst$/#server 3.centos.pool.ntp.org iburst/g"  /etc/chrony.conf
+ echo  server ntp.aliyun.com  iburst  >> /etc/chrony.conf
  systemctl restart chronyd
- local a='^*'
- if  not [ chronyc sources | awk  'NR==4{print $1}'  == "$a" ];then 
- echo "时间校时不通过"
+ systemctl enable chronyd
+ sleep 10s
+ local b='^*'
+ local a=`chronyc sources | awk  'NR==4{print $1}'`
+ if   [ "$a"  != "$b" ];then
+ echo "时间校时不通过,请手动校时"
  fi
   }
 
-ss -lnput | grep chronyd || ss -lnput | grep  npt 
-if [ $? -eq 0];then 
- case $a in 
-  )
+ntp () {
+ systemctl stop ntpd
+ systemctl disable ntpd
+ yum -y remove ntp           &>/dev/null
+ chrony
+   }
 
+ss -lnput | grep ntpd    &>/dev/null
+ if [ $? -eq 0 ]; then
+    ntp
+ else
+      ss -lnput | grep chronyd  &>/dev/null
+       if [ $? -eq 0 ]; then
+        sed -ri  "s/^server.*iburst$/#server 3.centos.pool.ntp.org iburst/g"  /etc/chrony.conf
+        echo  server ntp.aliyun.com  iburst  >> /etc/chrony.conf
+       else
+        chrony
+       fi
+ fi
 
-
-
-
-
-
-
-
-
-
-
+echo "所有的环境准备已经完成，现在可以进行安装啦！"
 
