@@ -1,3 +1,4 @@
+#!/bin/bash
 if [  ! -z $http_proxy  ];then
  echo  '$http_proxy'为非空，值为"$http_proxy"
  exit
@@ -17,7 +18,7 @@ chattr -i /etc/resolv.conf
 systemctl stop firewalld
 systemctl disable firewalld
 
-setenforce 0
+setenforce 0  &>/dev/null
 sed -i 's/^SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 
  
@@ -25,16 +26,19 @@ sed -i 's/^SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 echo "root soft nofile 102400
 root hard nofile 102400"  >>  /etc/security/limits.conf
 
-ulimit -Sn 102400
 ulimit -Hn 102400
+ulimit -Sn 102400
 
+if   [ ! -d /data ];then 
 mkdir /data
-tar xf /root/bkce_src-5.1.26.tar.gz  -C /data
+fi 
+echo "开始解压，请稍等..."
+tar xf /root/bkce_src-5.1.27.tar.gz  -C /data
 tar xf /root/install_ce-1.6.24.168.tgz  -C /data
 tar xf /root/ssl_certificates.tar.gz  -C /data/src/cert 
 
-mkdir /etc/yum.repos.d/all
-mv /etc/yum.repos.d/* /etc/yum.repos.d/all/
+mkdir /etc/yum.repos.d/all                &>/dev/null
+mv /etc/yum.repos.d/* /etc/yum.repos.d/all/  &>/dev/null
 wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.cloud.tencent.com/repo/centos7_base.repo
 wget -O /etc/yum.repos.d/epel.repo http://mirrors.cloud.tencent.com/repo/epel-7.repo
 yum clean all
