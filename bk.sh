@@ -26,8 +26,9 @@ sed -i 's/^SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 echo "root soft nofile 102400
 root hard nofile 102400"  >>  /etc/security/limits.conf
 
-ulimit -Hn 102400
-ulimit -Sn 102400
+echo  'ulimit -Hn 102400
+ulimit -Sn 102400' >> /etc/profile
+
 
 if   [ ! -d /data ];then 
 mkdir /data
@@ -87,5 +88,5 @@ ss -lnput | grep ntpd    &>/dev/null
        fi
  fi
 
-echo "所有的环境准备已经完成，现在可以进行安装啦！"
+echo "蓝鲸准备已经完成，请执行source /etc/profile 或者重启后进行安装！"
 
