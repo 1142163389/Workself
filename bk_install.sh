@@ -1,5 +1,5 @@
 #!/bin/bash
-read -p "您需要部署社区版/单机版呢？请输入[1/2]:"  version
+read -p "您需要部署单击版/社区版呢？请输入[1/2]:"  version
 
 data='/data/install'
 num="10.0.0"
