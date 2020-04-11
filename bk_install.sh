@@ -5,8 +5,10 @@ data="/data/install/"
 one_install () {
   sed -i "s/bk.com/cloud.bk.com/"  $dataglobals.env
   sed -ri "s/[a-z]{6}.[A-Z]{4}.[A-Z]{5}.[A-Z]{4}..[a-z]{1,}[0-9]{1,}+[A-Z]{1,}.*/export PAAS_ADMIN_PASS='123456'/"   $dataglobals.env
-  cp install.config.new.sample  install.config
-  
+  cp $datainstall.config.new.sample  $datainstall.config
+  sed -i "8,15s/^/#/"  install.config
+  sed -ri "4,6s/[0-9]{2}.[0-9]{1}.{2}.[0-9]{1}/192.168.4.100/1"  $datainstall.config
+ 
     while true:   
     do
       read -p "请输入您部署到哪台ip地址："  ip1
@@ -21,6 +23,14 @@ one_install () {
 
 more_install () {
   sed -i "s/bk.com/cloud.bk.com/"  $dataglobals.env 
+  sed -ri "s/[a-z]{6}.[A-Z]{4}.[A-Z]{5}.[A-Z]{4}..[a-z]{1,}[0-9]{1,}+[A-Z]{1,}.*/export PAAS_ADMIN_PASS='123456'/"   $dataglobals.env
+  cp install.config.new.sample  install.config
+  sed -i "8,15s/^/#/"  $datainstall.config
+  sed -i "4s/10.0.0.1/192.168.4.100/1"  $datainstall.config
+  sed -i "5s/10.0.0.2/192.168.4.100/1"  $datainstall.config
+  sed -i "6s/10.0.0.3/192.168.4.100/1"  $datainstall.config
+
+
        while true:
     do
       read -p "请输入中控机ip"      ip2
