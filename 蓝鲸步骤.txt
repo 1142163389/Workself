@@ -38,7 +38,7 @@ export BK_DOMAIN="bk.cloud.tencent.com"
 修改 PAAS_ADMIN_PASS
 用来登陆蓝鲸平台的管理员密码
 为
-qaKaiEqA
+123456
 修改 根域名
  为可访问白名单地址:
 export BK_DOMAIN="bk.cloud.tencent.com"
