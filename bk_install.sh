@@ -88,5 +88,5 @@ esac
 if [ $? -eq 0 ]
 then  
  echo '》》》开始进行安装《《《'
- ./bk_install paas && ./bk_install cmdb && ./bk_install job
+ /data/install/bk_install paas &&  /data/install/bk_install  cmdb && /data/install/bk_install  job
 fi 
