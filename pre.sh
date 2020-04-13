@@ -38,16 +38,16 @@ tar xf /root/bkce_src-5.1.27.tar.gz  -C /data
 tar xf /root/install_ce-1.6.24.168.tgz  -C /data
 tar xf /root/ssl_certificates.tar.gz  -C /data/src/cert 
 
-#mkdir /etc/yum.repos.d/all                &>/dev/null
-#mv /etc/yum.repos.d/* /etc/yum.repos.d/all/  &>/dev/null
-#wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.cloud.tencent.com/repo/centos7_base.repo
-#wget -O /etc/yum.repos.d/epel.repo http://mirrors.cloud.tencent.com/repo/epel-7.repo
-#yum clean all
-#yum repolist 
-# if [ $?  -ne 0 ];then
-#  echo "初始化失败"
-#  exit
-# fi
+mkdir /etc/yum.repos.d/all                &>/dev/null
+mv /etc/yum.repos.d/* /etc/yum.repos.d/all/  &>/dev/null
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.cloud.tencent.com/repo/centos7_base.repo
+wget -O /etc/yum.repos.d/epel.repo http://mirrors.cloud.tencent.com/repo/epel-7.repo
+yum clean all
+yum repolist 
+ if [ $?  -ne 0 ];then
+  echo "初始化失败"
+  exit
+ fi
 
 which rsync   >/dev/null
 if [ $? -ne 0 ];then
