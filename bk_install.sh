@@ -1,4 +1,5 @@
 #!/bin/bash
+stty erase ^H
 read -p "您需要部署单击版/社区版呢？请输入[1/2]:"  version
 
 data='/data/install'
